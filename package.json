@@ -1,0 +1,21 @@
+{
+  "name": "pig-latin",
+  "version": "1.0.0",
+  "description": "Pig-latin converter example",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --watch --mode=development",
+    "build": "webpack --watch --mode=production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dununan",
+  "license": "ISC",
+  "devDependencies": {
+    "awesome-typescript-loader": "^5.2.0",
+    "prettier": "^1.14.0",
+    "source-map-loader": "^0.2.3",
+    "typescript": "^3.0.1",
+    "webpack": "^4.16.4",
+    "webpack-cli": "^3.1.0"
+  }
+}
