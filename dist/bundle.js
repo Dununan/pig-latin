@@ -90,35 +90,95 @@
 /*!********************!*\
   !*** ./src/app.ts ***!
   \********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _lib_PigLatinConverter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/PigLatinConverter */ "./src/lib/PigLatinConverter.ts");
+
+var input = document.getElementById("text-input");
+var output = document.getElementById("text-output");
+var submit = document.getElementById("text-submit");
+var liveConvert = document.getElementById("live-convert");
+submit.addEventListener('click', function () { return output.value = new _lib_PigLatinConverter__WEBPACK_IMPORTED_MODULE_0__["default"](input.value).getConvertedText(); });
+liveConvert.addEventListener('change', function () {
+    liveConvert.checked ? bindKeyUp() : unbindKeyUp();
+});
+function bindKeyUp() {
+    input.addEventListener("keyup", handleKeyUp);
+}
+function unbindKeyUp() {
+    input.removeEventListener("keyup", handleKeyUp);
+}
+function handleKeyUp() {
+    submit.click();
+}
+
+
+/***/ }),
+
+/***/ "./src/lib/PigLatinConverter.ts":
+/*!**************************************!*\
+  !*** ./src/lib/PigLatinConverter.ts ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 var PigLatinConverter = /** @class */ (function () {
-    function PigLatinConverter(text) {
-        // this.convertedText = this.convertText(text);
+    function PigLatinConverter(originalText) {
         var _this = this;
-        // "Hello my apple.".split(" ")
-        var wordsArray = this.splitWords(text);
-        // "Hello".slice(0, 1)
+        this.originalText = originalText;
+        var wordsArray = this.splitWords(originalText.trim());
         var convertedArray = wordsArray.map(function (original) {
-            var parsed = _this.vowelOrConsonantWord(original);
-            parsed = _this.capitalization(original, parsed);
-            parsed = _this.fixPunctuation(original, parsed);
-            return parsed;
+            return original
+                .split("-")
+                .map(function (word) { return _this.processWord(word); })
+                .join("-");
         });
         this.convertedText = convertedArray.join(" ");
-        // /[aeiou]/.test("A".toLocaleLowerCase()) true/false
-        // /way$/.test("stairway")
-        // "can’t".indexOf("’")
-        // "can’t".indexOf("’") && "this-thing".split("-")
-        // character == character.toUpperCase()
     }
+    /**
+     * Returns converted pig-latin string
+     */
     PigLatinConverter.prototype.getConvertedText = function () {
         return this.convertedText;
     };
-    PigLatinConverter.prototype.splitWords = function (text) {
-        return text.split(" ");
+    /**
+     * Returns original text
+     */
+    PigLatinConverter.prototype.getOriginalText = function () {
+        return this.originalText;
     };
+    /**
+     * Convert one word to pig-latin format
+     */
+    PigLatinConverter.prototype.processWord = function (original) {
+        var parsed = this.clearText(original);
+        parsed = this.vowelOrConsonantWord(parsed);
+        parsed = this.fixPunctuation(original, parsed);
+        parsed = this.capitalization(original, parsed);
+        return parsed;
+    };
+    /**
+     * Split text to words array
+     */
+    PigLatinConverter.prototype.splitWords = function (text) {
+        return text.split(/[\s]+/);
+    };
+    /**
+     * Remove all punctuation character, covert result to lower case
+     */
+    PigLatinConverter.prototype.clearText = function (text) {
+        var parsed = text.replace(/[.,\/#!$%\^&\*;:{}=_`~() '’]/g, "");
+        parsed.split("-");
+        return parsed.toLocaleLowerCase();
+    };
+    /**
+     * Convert word by rules for vowel, consonant and word with "way" on end
+     */
     PigLatinConverter.prototype.vowelOrConsonantWord = function (word) {
         // Words that end in “way” are not modified.
         if (/way$/.test(word)) {
@@ -136,10 +196,10 @@ var PigLatinConverter = /** @class */ (function () {
      * Capitalization must remain in the same place.
      */
     PigLatinConverter.prototype.capitalization = function (original, parsed) {
-        var lettersParsed = parsed.toLowerCase().split('');
+        var lettersParsed = parsed.split('');
         var lettersOriginal = original.split('');
         lettersOriginal.map(function (letter, index) {
-            if (letter === letter.toUpperCase()) {
+            if (!/[.,\/#!$%\^&\*;:{}=\-_`~() '’]/.test(letter) && letter === letter.toUpperCase()) {
                 lettersParsed[index] = lettersParsed[index].toUpperCase();
             }
         });
@@ -149,11 +209,11 @@ var PigLatinConverter = /** @class */ (function () {
      * Punctuation must remain in the same relative place from the end of the word.
      */
     PigLatinConverter.prototype.fixPunctuation = function (original, parsed) {
-        var punctuationReg = /[.,\/#!$%\^&\*;:{}=_`~() ']/;
+        var punctuationReg = /[.,\/#!$%\^&\*;:{}=_`~() '’]/;
         if (!punctuationReg.test(original)) {
             return parsed;
         }
-        var lettersParsed = parsed.replace(/[.,\/#!$%\^&\*;:{}=\-_`~() ']/g, "").split('');
+        var lettersParsed = parsed.split('');
         var lettersOriginal = original.split('');
         lettersOriginal.slice(0).reverse().map(function (character, positionFromEnd) {
             if (punctuationReg.test(character)) {
@@ -164,16 +224,7 @@ var PigLatinConverter = /** @class */ (function () {
     };
     return PigLatinConverter;
 }());
-var testText = "Hello apple stairway can't end. Beach this-thing McCloud";
-var button = document.createElement("button");
-button.textContent = "Test";
-button.onclick = function () {
-    document.getElementById("test2").innerHTML = new PigLatinConverter(testText).getConvertedText();
-};
-var div = document.createElement("div");
-div.id = "test2";
-document.getElementById("wrapper").appendChild(button);
-document.getElementById("wrapper").appendChild(div);
+/* harmony default export */ __webpack_exports__["default"] = (PigLatinConverter);
 
 
 /***/ })

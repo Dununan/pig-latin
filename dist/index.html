@@ -1,13 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Pig-latin</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <title>Pig-latin Example</title>
 </head>
 <body>
-<div id="wrapper"></div>
+<div class="container mt-2">
+  <div class="row">
+	<div class="col-md-6 offset-md-3 text-center">
+	  <h1>Pig-latin example converter</h1>
+	</div>
+  </div>
+  <div class="row mt-2">
+	<div class="col-md-6 offset-md-3">
+	  <textarea class="form-control" id="text-input" rows="3"></textarea>
+	</div>
+  </div>
+  <div class="row mt-2">
+	<div class="col-md-6 offset-md-3 text-center">
+	  <button type="button" class="btn btn-primary btn-lg" id="text-submit">Convert to pig-latin</button>
+	  <div class="custom-control custom-checkbox">
+		<input type="checkbox" class="custom-control-input" id="live-convert">
+		<label class="custom-control-label" for="live-convert">Turn on live convert</label>
+	  </div>
+	</div>
+  </div>
+  <div class="row mt-2">
+	<div class="col-md-6 offset-md-3">
+	  <textarea class="form-control" id="text-output" rows="3" readonly></textarea>
+	</div>
+  </div>
+</div>
 <p>
-    Ellohay appleway stairway antca’y endway. Eachbay histay-hingtay CcLoudmay
+  Ellohay appleway stairway antca'y endway. Eachbay histay-hingtay CcLoudmay
 </p>
 <script src="bundle.js"></script>
 </body>
