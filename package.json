@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "webpack --watch --mode=development",
     "build": "webpack --watch --mode=production",
-    "test": "ts-mocha -p tsconfig.json src/lib/**/*.spec.ts"
+    "test": "ts-mocha -p tsconfig.json src/lib/**/*.spec.ts",
+    "prettier": "prettier --write src/**/*"
   },
   "author": "Dununan",
   "license": "ISC",

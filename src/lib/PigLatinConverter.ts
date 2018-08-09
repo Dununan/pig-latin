@@ -49,7 +49,7 @@ export default class PigLatinConverter {
    * Remove all punctuation character, covert result to lower case
    */
   private clearText(text: string): string {
-    let parsed = text.replace(/[.,\/#!$%\^&\*;:{}=_`~() '’]/g,"");
+    let parsed = text.replace(/[.,\/#!$%\^&\*;:{}=_`~() '’]/g, "");
     parsed.split("-");
     return parsed.toLocaleLowerCase();
   }
@@ -65,7 +65,7 @@ export default class PigLatinConverter {
 
     // Words that start with a vowel have the letters “way” added to the end.
     const firstLetter = word.slice(0, 1).toLocaleLowerCase();
-    if ( /[aeiou]/.test(firstLetter)) {
+    if (/[aeiou]/.test(firstLetter)) {
       return `${word}way`;
     }
 
@@ -77,16 +77,19 @@ export default class PigLatinConverter {
    * Capitalization must remain in the same place.
    */
   private capitalization(original: string, parsed: string): string {
-    let lettersParsed = parsed.split('');
-    const lettersOriginal = original.split('');
+    let lettersParsed = parsed.split("");
+    const lettersOriginal = original.split("");
 
     lettersOriginal.map((letter, index) => {
-      if (!/[.,\/#!$%\^&\*;:{}=\-_`~() '’]/.test(letter) && letter === letter.toUpperCase()) {
+      if (
+        !/[.,\/#!$%\^&\*;:{}=\-_`~() '’]/.test(letter) &&
+        letter === letter.toUpperCase()
+      ) {
         lettersParsed[index] = lettersParsed[index].toUpperCase();
       }
     });
 
-    return lettersParsed.join('');
+    return lettersParsed.join("");
   }
 
   /**
@@ -98,15 +101,22 @@ export default class PigLatinConverter {
       return parsed;
     }
 
-    let lettersParsed = parsed.split('');
-    const lettersOriginal = original.split('');
+    let lettersParsed = parsed.split("");
+    const lettersOriginal = original.split("");
 
-    lettersOriginal.slice(0).reverse().map((character, positionFromEnd) => {
-      if (punctuationReg.test(character)) {
-        lettersParsed.splice((lettersParsed.length) - positionFromEnd, 0, character);
-      }
-    });
+    lettersOriginal
+      .slice(0)
+      .reverse()
+      .map((character, positionFromEnd) => {
+        if (punctuationReg.test(character)) {
+          lettersParsed.splice(
+            lettersParsed.length - positionFromEnd,
+            0,
+            character
+          );
+        }
+      });
 
-    return lettersParsed.join('');
+    return lettersParsed.join("");
   }
 }
