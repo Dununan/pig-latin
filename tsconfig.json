@@ -2,11 +2,17 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "sourceMap": true,
-    "module": "es6",
-    "target": "es5"
+    "module": "commonJS",
+    "target": "es5",
+    "moduleResolution": "node",
+    "removeComments": true,
+    "esModuleInterop": true,
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"]
 
   },
   "include": [
     "./src/"
-  ]
+  ],
+  "exclude": ["node_modules"]
 }
